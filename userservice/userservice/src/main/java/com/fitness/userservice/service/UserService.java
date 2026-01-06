@@ -55,6 +55,8 @@ public class UserService {
         return response;
     }
 
-
+    public boolean validateUser(String userId) {
+        return repository.existsById(userId);
+    }
 
 }

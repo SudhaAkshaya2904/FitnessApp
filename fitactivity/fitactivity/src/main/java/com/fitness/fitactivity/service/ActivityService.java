@@ -8,16 +8,24 @@ import com.fitness.fitactivity.dto.ActivityRequest;
 import com.fitness.fitactivity.dto.ActivityResponse;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class ActivityService {
 
     public ActivityRepository activityRepository;
+    private final UserValidationService userValidationService;
 
     public ActivityResponse trackActivity(ActivityRequest request) {
+        if (!userValidationService.validateUserId(request.getUserId())) {
+                log.info("Tracking activity for user ID: {}", request.getUserId());
 
-     
+            throw new IllegalArgumentException("Invalid user ID");
+        }
+       
+
         Activity activity = Activity.builder()
                 .userId(request.getUserId())
                 .type(request.getType())
