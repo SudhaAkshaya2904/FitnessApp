@@ -17,7 +17,9 @@ public class WebClientConfig {
 
     @Bean
     public WebClient userWebClient(WebClient.Builder builder) {
-        return builder.baseUrl("http://USER-SERVICE").build();
+       
+
+        return builder.baseUrl("http://USER-SERVICE:8081").build();
     }
 
 

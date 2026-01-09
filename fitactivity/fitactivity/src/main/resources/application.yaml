@@ -7,7 +7,23 @@ spring:
    mongodb:
     database: fitnessactivity
     uri: mongodb://localhost:27017/fitnessactivity
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+  instance:
+      hostname: localhost
+      prefer-ip-address: false
+
+rabbitmq:
+  exchange: 
+    name: fitactivity-exchange
+  routing: 
+    key: fitactivity-routingkey
+  queue: 
+    name: fitactivity-queue

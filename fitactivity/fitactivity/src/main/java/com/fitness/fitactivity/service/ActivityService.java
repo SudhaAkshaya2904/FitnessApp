@@ -1,22 +1,28 @@
 package com.fitness.fitactivity.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.fitness.fitactivity.model.Activity;
 import com.fitness.fitactivity.repository.ActivityRepository;
 import com.fitness.fitactivity.dto.ActivityRequest;
 import com.fitness.fitactivity.dto.ActivityResponse;
-
-import lombok.AllArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class ActivityService {
 
-    public ActivityRepository activityRepository;
+    public final ActivityRepository activityRepository;
     private final UserValidationService userValidationService;
+    @Value("${rabbitmq.exchange.name}")
+    private String exchangeName = "fitactivity-exchange";
+    @Value("${rabbitmq.routing.key}")
+    private String routingKey = "fitactivity-routingkey";
+    private final RabbitTemplate rabbitTemplate;
 
     public ActivityResponse trackActivity(ActivityRequest request) {
         if (!userValidationService.validateUserId(request.getUserId())) {
@@ -36,6 +42,14 @@ public class ActivityService {
                 .build();
 
         Activity savedActivity = activityRepository.save(activity);
+        //Publish to RabbitMQ can be added here in the future
+       try {
+            rabbitTemplate.convertAndSend(exchangeName, routingKey, savedActivity);
+        } catch (Exception e) {
+           log.error("Failed to publish activity to RabbitMQ: {}", e.getMessage());
+        }
+
+         log.info("Activity tracked with ID: {}", savedActivity.getId());
 
         return mapToResponse(savedActivity);
     }
