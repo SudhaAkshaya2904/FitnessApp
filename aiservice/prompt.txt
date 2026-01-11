@@ -1,0 +1,24 @@
+  private String createPrompt(Activity activity) {
+        return "";
+     /*    return String.format("""Analyze this fitnessactivity and create a detailed recommendation in below exact json format:
+        {
+        "Analysis" : {"overall": "Overall analysis here", "pace": "Pace analysis here"," heartRate": "Heart rate analysis here", "calories burned": "Calories burned analysis here"},
+        "improvements" : ["area", "Area name"],["Recommendation", "Detailed recommendation here"],},
+        "Suggestions" :[{"Workout Name": "Name of workout", "Description": "Detailed description of the workout", "Duration": "Duration in minutes", "Intensity": "Low/Medium/High"}],
+        "Safety" : {"Precautions": "List of safety precautions to consider during the activity"},
+        "Motivation" : {"Tips": "List of motivational tips to stay consistent with the activity"},
+        }
+        for the following 
+        activity data: Type: %s, 
+        Duration: %d minutes, 
+        Distance: %.2f km, Average Pace: %s min/km, 
+        Average Heart Rate: %d bpm, Calories Burned: %d kcal.""",
+        activity.getType(), 
+        activity.getDurationMinutes(), 
+        activity.getDistanceKm(), 
+        activity.getAveragePaceMinPerKm(), 
+        activity.getAverageHeartRateBpm(), 
+        activity.getCaloriesBurned()
+    );*/
+                    
+    }

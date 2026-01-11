@@ -1,7 +1,6 @@
 package com.fitness.aiservice.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -24,6 +23,7 @@ public class GeminiService {
          new Object[] { Map.of("parts", new Object[] { Map.of("text", prompt) } ) });
         // Implementation for calling Gemini API
         // This is a placeholder implementation
+        
         return webClient.post()
                 .uri(apiUrl + apiKey)
                 .header("Content-Type", "application/json")
