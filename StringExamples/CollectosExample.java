@@ -33,6 +33,10 @@ public class CollectosExample {
                                       .sorted()
                                       .collect(Collectors.toList());
         System.out.println(sortedresult);
+        // display length of each fruit in the list
+        List<String> fruitArrList=Arrays.asList("apple","Banana","kiwi","Mango");
+        Map<String,Integer> fruitArrMap=fruitArrList.stream().collect(Collectors.toMap( s->s , String::length));
+        System.out.println("fruitArrList"+fruitArrMap);
     }
     
 }
